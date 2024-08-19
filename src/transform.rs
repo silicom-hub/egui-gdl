@@ -95,7 +95,7 @@ impl TransformState {
         self.update(new_position_offset, new_zoom);
     }
 
-    /// Update the screen with position offset and zoom factor
+    /// Update the screen with position offset and zoom factor.
     pub fn update(&mut self, position_offset: Vec2, zoom_factor: f32) {
         self.position_offset = position_offset;
         self.zoom_factor = zoom_factor;

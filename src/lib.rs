@@ -334,7 +334,7 @@ impl<S, N, E, Ty: EdgeType, Ix: IndexType + Debug> Graph<S, N, E, Ty, Ix> {
 
         // Handle zoom
         if let Some(pos) = ui.ctx().pointer_latest_pos() {
-            let zoom = ui.input(|i| i.scroll_delta.y);
+            let zoom = ui.input(|i| i.raw_scroll_delta.y);
             if zoom != 0. && transform.draw_rect.contains(pos) {
                 transform.user_modified = true;
                 let zoom = (zoom * ZOOM_STEP).exp();
@@ -431,7 +431,7 @@ impl<S, N, E, Ty: EdgeType, Ix: IndexType + Debug> Graph<S, N, E, Ty, Ix> {
                 );
 
                 // Here we draw the edge content (can be any widget)
-                let mut child_ui = ui.child_ui(rect, Layout::top_down(egui::Align::Center));
+                let mut child_ui = ui.child_ui(rect, Layout::top_down(egui::Align::Center), None);
 
                 // Regarding show edge value (which closure parameter to provide), call underlying closure
                 Self::show_transformed(&mut child_ui, transform, &self.inner.config, |ui| {
@@ -515,7 +515,7 @@ impl<S, N, E, Ty: EdgeType, Ix: IndexType + Debug> Graph<S, N, E, Ty, Ix> {
                 };
 
                 // Here we draw the node content (can be any widget)
-                let mut child_ui = ui.child_ui(rect, Layout::top_down(egui::Align::Center));
+                let mut child_ui = ui.child_ui(rect, Layout::top_down(egui::Align::Center), None);
 
                 // Regarding show node value (which closure parameter to provide), call underlying closure
                 Self::show_transformed(&mut child_ui, transform, &self.inner.config, |ui| {
@@ -631,10 +631,10 @@ impl<S, N, E, Ty: EdgeType, Ix: IndexType + Debug> Graph<S, N, E, Ty, Ix> {
         ui.style_mut().spacing.icon_spacing *= transform.zoom_factor;
         ui.style_mut().spacing.tooltip_width *= transform.zoom_factor;
         ui.style_mut().spacing.combo_height *= transform.zoom_factor;
-        ui.style_mut().spacing.scroll_bar_width *= transform.zoom_factor;
-        ui.style_mut().spacing.scroll_handle_min_length *= transform.zoom_factor;
-        ui.style_mut().spacing.scroll_bar_inner_margin *= transform.zoom_factor;
-        ui.style_mut().spacing.scroll_bar_outer_margin *= transform.zoom_factor;
+        ui.style_mut().spacing.scroll.bar_width *= transform.zoom_factor;
+        ui.style_mut().spacing.scroll.handle_min_length *= transform.zoom_factor;
+        ui.style_mut().spacing.scroll.bar_inner_margin *= transform.zoom_factor;
+        ui.style_mut().spacing.scroll.bar_outer_margin *= transform.zoom_factor;
 
         // Here we call the closure
         (show)(ui);

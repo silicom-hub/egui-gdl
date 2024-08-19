@@ -62,7 +62,7 @@ fn main() {
         options,
         Box::new(|_| {
             // This gives us image support:
-            Box::<MyApp>::default()
+            Ok(Box::<MyApp>::default())
         }),
     )
     .unwrap();

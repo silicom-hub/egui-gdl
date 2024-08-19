@@ -25,3 +25,5 @@ generated_is.json
 gui.bin
 
 Cargo.lock
+
+build.sh
